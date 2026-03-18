@@ -1,0 +1,31 @@
+{
+  "name": "priorize-app",
+  "version": "1.0.0",
+  "description": "O Priorize é uma plataforma única para organização pessoal, integrando calendário, lista de tarefas inteligente com subtarefas e progresso, e um sistema de rotinas para automação de hábitos. O sistema funciona via navegador e conta com suporte para dispositivos móveis.",
+  "homepage": "https://github.com/MarcusFonseca15/priorize-app#readme",
+  "bugs": {
+    "url": "https://github.com/MarcusFonseca15/priorize-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcusFonseca15/priorize-app.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "tsx": "^4.21.0"
+  }
+}

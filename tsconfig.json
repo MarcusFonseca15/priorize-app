@@ -1,0 +1,12 @@
+{ 
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "es2024", //ESM
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "./dist", //arquivos compilados ficam aqui
+    "rootDir": "./src"
+  },
+  "include": ["src"]
+}
