@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Usuario {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  senha     String
+  nome      String
+  criadoEm  DateTime @default(now())
+
+  tarefas                Tarefa[]
+  eventos                Evento[]
+  tags                   Tag[]
+  registrosProdutividade RegistroProdutividade[]
+}
+
+model Tarefa {
+  id                String      @id @default(cuid())
+  usuarioId         String
+  usuario           Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  titulo            String
+  descricao         String
+  inicioPrevisto    DateTime
+  fimPrevisto       DateTime
+  duracaoEstimadaEmMin   Int?    
+  prioridade        Prioridade? @default(MEDIA)
+  status            Status      @default(PENDENTE)
+  ajusteAutomatico  Boolean     @default(true)
+  eRotina           Boolean     @default(false)
+  frequencia        Frequencia?
+  estaConcluida     Boolean     @default(false)
+  concluidaEm       DateTime?
+  criadoEm          DateTime    @default(now())
+
+  subtarefas        Subtarefa[]
+  tags              ItemTag[]
+}
+
+model Subtarefa {
+  id            String  @id @default(cuid())
+  tarefaId      String
+  tarefa        Tarefa  @relation(fields: [tarefaId], references: [id], onDelete: Cascade)
+  
+  titulo        String
+  estaConcluida Boolean @default(false)
+  ordem         Int
+}
+
+model Evento {
+  id          String   @id @default(cuid())
+  usuarioId   String
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  titulo      String
+  descricao   String
+  inicio      DateTime
+  fim         DateTime
+  eRotina     Boolean  @default(false)
+  local       String?
+  criadoEm    DateTime @default(now())
+
+  tags        ItemTag[]
+}
+
+model Tag {
+  id        String    @id @default(cuid())
+  usuarioId String
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  nome      String
+  cor       String
+  itens     ItemTag[]
+}
+
+model ItemTag {
+  id        String  @id @default(cuid())
+  tagId     String
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+  tarefaId  String?
+  tarefa    Tarefa? @relation(fields: [tarefaId], references: [id], onDelete: Cascade)
+  
+  eventoId  String?
+  evento    Evento? @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+}
+
+model RegistroProdutividade {
+  id                String   @id @default(cuid())
+  usuarioId         String
+  usuario           Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  periodo           String   // "MENSAL", "SEMESTRAL", "ANUAL"
+  inicioPeriodo     DateTime
+  tarefasConcluidas Int      @default(0)
+  totalTarefas      Int      @default(0)
+}
+
+enum Prioridade {
+  ALTA
+  MEDIA
+  BAIXA
+}
+
+enum Status {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDA
+}
+
+enum Frequencia {
+  DIARIA
+  SEMANAL
+  MENSAL
+  ANUAL
+}
