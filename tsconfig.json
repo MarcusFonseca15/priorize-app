@@ -1,25 +1,42 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2024", //ESM
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "es2022", //ESM
     "skipLibCheck": true,
     "strict": true,
     "outDir": "./dist", //arquivos compilados ficam aqui
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "jsx": "react-jsx", //// Next.js precisa de "preserve" para o JSX — ele mesmo faz o transform
     "plugins": [
       {
         "name": "next"
       }
     ]
   },
-  "include": ["src", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
