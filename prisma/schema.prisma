@@ -75,10 +75,10 @@ model Tarefa {
   usuarioId         String
   usuario           User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   
-  titulo            String
-  descricao         String
-  inicioPrevisto    DateTime
-  fimPrevisto       DateTime
+  titulo            String?
+  descricao         String?
+  inicioPrevisto    DateTime?
+  fimPrevisto       DateTime?
   duracaoEstimadaEmMin   Int?    
   prioridade        Prioridade? @default(MEDIA)
   status            Status      @default(PENDENTE)
@@ -109,9 +109,9 @@ model Evento {
   usuario     User  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   
   titulo      String
-  descricao   String
-  inicio      DateTime
-  fim         DateTime
+  descricao   String?
+  inicio      DateTime?
+  fim         DateTime?
   eRotina     Boolean  @default(false)
   local       String?
   criadoEm    DateTime @default(now())
